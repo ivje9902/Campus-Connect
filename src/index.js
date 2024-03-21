@@ -21,8 +21,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 
 function signInWithGoogle() { 
-    const provider = new GoogleAuthProvider(); 
-    signInWithPopup(auth, provider).then((result) => { 
+    const GoogleProvider = new GoogleAuthProvider(); 
+    signInWithPopup(auth, GoogleProvider).then((result) => { 
     const user = result.user; 
     console.log(user); }) 
     .catch((error) => { console.error(error); }); 
@@ -50,10 +50,10 @@ const db = getFirestore();
 async function createDocument(collectionName, data) {
   try {
     const docRef = await addDoc(collection(db, collectionName), data);
-    console.log("Document written with ID: ", docRef.id);
+    console.log("Document created", docRef.id);
     return docRef.id;
   } catch (error) {
-    console.error("Error adding document: ", error);
+    console.error("Error creating ", error);
     return null;
   }
 }
@@ -64,21 +64,21 @@ async function readDocuments(collectionName, field, value) {
     const q = query(collection(db, collectionName), where(field, "==", value));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
+      // TODO: Use read data
     });
   } catch (error) {
-    console.error("Error getting documents: ", error);
+    console.error("Error reading: ", error);
   }
 }
 
 // Update a document
 async function updateDocument(collectionName, docId, data) {
   try {
-    const docRef = doc(db, collectionName, docId);
-    await updateDoc(docRef, data);
-    console.log("Document updated successfully");
+    const washingtonRef = doc(db, collectionName, docId);
+    await updateDoc(washingtonRef, data);
+    console.log("Update completed");
   } catch (error) {
-    console.error("Error updating document: ", error);
+    console.error("Error updating: ", error);
   }
 }
 
@@ -86,9 +86,9 @@ async function updateDocument(collectionName, docId, data) {
 async function deleteDocument(collectionName, docId) {
   try {
     await deleteDoc(doc(db, collectionName, docId));
-    console.log("Document deleted successfully");
+    console.log("Deletion completed");
   } catch (error) {
-    console.error("Error deleting document: ", error);
+    console.error("Error deleting: ", error);
   }
 }
 
