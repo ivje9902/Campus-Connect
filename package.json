@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "firebase": "^10.9.0"
+    "firebase": "^10.11.0"
   },
   "name": "campus-connect",
   "version": "1.0.0",
