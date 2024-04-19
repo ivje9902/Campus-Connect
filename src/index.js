@@ -250,7 +250,12 @@ async function addArrayFieldToDocument(collectionID, documentName, fieldValue1, 
   }
 }
 
-
+/**
+ * Adds a file to the database
+ * @async
+ * @function
+ * @param {string} courseID - The course ID 
+ */
 async function submitFile(courseID) {
   // Get the file input element
   var fileInput = document.getElementById('formFileLg');
@@ -279,7 +284,7 @@ async function submitFile(courseID) {
 window.generateCourseLectures = generateCourseLectures;
 window.generateCourseExams = generateCourseExams;
 window.generateCourseNavigation = generateCourseNavigation;
-
+window.submitFile = submitFile;
 
 
 
