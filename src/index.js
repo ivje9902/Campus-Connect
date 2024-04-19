@@ -206,6 +206,75 @@ async function generateCourseLectures() {
 
 }
 
+/**
+ * Uploads a file and creates a firestore reference.
+ * @async
+ * @function
+ * @param {string} collectionID - The collection ID.
+ * @param {string} category - The type of file.
+ * @param {string} fileName - File name, included ."type" (Example: .PDF).
+ * @param {string} desc - The file description.
+ * @param {File} file - The file object selected by the user.
+ */
+async function uploadFile(collectionID, category, fileName, desc, file) {
+  try {
+    const storageRef = ref(storage, `${collectionID}/${category}/${fileName}`);
+    addArrayFieldToDocument(collectionID, category, fileName, `${collectionID}/${category}/${fileName}`, desc);
+    await uploadBytes(storageRef, file).then((snapshot) => {
+      console.log("Uploaded file succesfully");
+    });
+  } catch (error) {
+    console.error("Error uploading file:", error);
+  }
+}
+
+/**
+ * Adds an array field with information inside a given document in a given collection.
+ * @async
+ * @function
+ * @param {string} collectionID - The collection ID.
+ * @param {string} documentName - The document name.
+ * @param {string} fieldValue1 - Array index 0 value.
+ * @param {string} fieldValue2 - Array index 1 value.
+ * @param {string} fieldValue3 - Array index 2 value.
+ */
+async function addArrayFieldToDocument(collectionID, documentName, fieldValue1, fieldValue2, fieldValue3) {
+  try {
+    const docRef = doc(db, collectionID, documentName);
+    await setDoc(docRef, {
+      [fieldValue1]: [fieldValue1, fieldValue2, fieldValue3]
+    }, { merge: true });
+    console.log("Array field added/updated successfully");
+  } catch (error) {
+    console.error("Error adding array field:", error);
+  }
+}
+
+
+async function submitFile(courseID) {
+  // Get the file input element
+  var fileInput = document.getElementById('formFileLg');
+  var nameInput = document.getElementById('fileName').value;
+  
+  // Get the selected file
+  var file = fileInput.files[0];
+
+  // Get the selected value from the dropdown
+  var selectElement = document.getElementById('inputGroupSelect04');
+  var selectedValue = selectElement.value;
+
+  console.log(file.name);
+  if(selectedValue == 1) {
+    //TODO: Get the name of file as string
+    uploadFile(courseID, "Exams", file.name, desc, file);
+  } else if (selectedValue == 2) {
+    uploadFile(courseID, "Lectures", file.name, desc, file);
+  } else if (selectedValue == 3) {
+    uploadFile(courseID, "Exams", file.name, desc, file);
+  } else if (selectedValue == 4) {
+    uploadFile(courseID, "Exams", file.name, desc, file);
+  }
+}
 
 window.generateCourseLectures = generateCourseLectures;
 window.generateCourseExams = generateCourseExams;
