@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Connect - Quiz</title>
+    <!-- Your bundled JavaScript file -->
+    <script src="/public/bundle.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app">
+        <h1>Quiz subject</h1>
+        <div class="quiz">
+            <h2 id="question">Question goes here</h2>
+            <div id="answer-buttons">
+                <button class="btn">Answer 1</button>
+                <button class="btn">Answer 2</button>
+                <button class="btn">Answer 3</button>
+                <button class="btn">Answer 4</button>
+            </div>
+            <button id="next-btn">Next</button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK scripts using Web Modular API -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAjWnGy2HpTFM-07fRp3VIokULmU_dyMg4",
+            authDomain: "campusconnect-30c4a.firebaseapp.com",
+            databaseURL: "https://campusconnect-30c4a-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "campusconnect-30c4a",
+            storageBucket: "campusconnect-30c4a.appspot.com",
+            messagingSenderId: "728123265116",
+            appId: "1:728123265116:web:2d24f83a222e156fe4d699",
+            measurementId: "G-YRMP4KDMNX"
+        };
+
+        // Initialize Firebase app
+        const firebaseApp = initializeApp(firebaseConfig);
+
+        // Get a Firestore reference
+        const db = getFirestore();
+    </script>
+
+    <!-- JavaScript file -->
+    <script type="module" src="/src/firebase.js"></script>
+    <script type="module" src="/src/script.js"></script>
+</body>
+</html>
