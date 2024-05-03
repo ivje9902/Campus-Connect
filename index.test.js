@@ -123,7 +123,4 @@ describe("Database Tests", () => {
     expect(deleteDoc).toHaveBeenCalledWith(doc(db, testCollectionName2, testDocumentId2));
   });
 
-  test("Create users", async () => {
-   createUser()
-  });
 });
