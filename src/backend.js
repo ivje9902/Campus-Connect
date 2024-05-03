@@ -40,15 +40,12 @@ const firebaseApp = initializeApp(firebaseConfig);
 // Get Firestore database instance
 const db = getFirestore();
 
-<<<<<<< HEAD
 const auth = getAuth(firebaseApp);
-
-export function getDB() {
-  return db;
-}
 
 // Get a reference to the storage service
 const storage = getStorage();
+
+export { storage, db };
 
 onAuthStateChanged(auth, async (user) => {
   if (user) {
@@ -68,12 +65,6 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
-=======
-// Get a reference to the storage service
-const storage = getStorage();
-
-export { storage, db };
->>>>>>> origin/master
 
 /**
  * Asynchronously retrieves the download URL for a file stored in Firebase Storage based on a given path.
