@@ -1,6 +1,7 @@
 import { getDoc, doc } from 'firebase/firestore';
-import { getCourses, getFileDownloadURL, getDB } from './backend.js'
+import { getCourses, getFileDownloadURL, getDB, getS } from './backend.js'
 
+import { ref } from 'firebase/storage'
 /**
  * Asynchronously generates navigation elements for available courses and appends them to the designated navigation element in the DOM.
  * This function retrieves a list of courses from `getCourses`, then iterates through each course to dynamically create a navigational button.
@@ -335,7 +336,7 @@ async function generateUpload() {
 */
 async function uploadFile(collectionID, category, fileName, desc, file) {
   try {
-    const storageRef = ref(storage, `${collectionID}/${category}/${fileName}`);
+    const storageRef = ref(getS, `${collectionID}/${category}/${fileName}`);
     addArrayFieldToDocument(collectionID, category, fileName, `${collectionID}/${category}/${fileName}`, desc);
     await uploadBytes(storageRef, file).then((snapshot) => {
       console.log("Uploaded file succesfully");
