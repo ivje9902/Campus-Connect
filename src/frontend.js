@@ -1,5 +1,10 @@
 import { getDoc, doc } from 'firebase/firestore';
+<<<<<<< HEAD
 import { getCourses, getFileDownloadURL, getDB, getS } from './backend.js'
+=======
+import { getCourses, getFileDownloadURL, getDB } from './backend.js'
+import { ref } from 'firebase/storage'
+>>>>>>> origin/master
 
 import { ref } from 'firebase/storage'
 /**

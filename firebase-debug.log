@@ -1,0 +1,43 @@
+[debug] [2024-05-03T10:03:10.358Z] ----------------------------------------------------------------------
+[debug] [2024-05-03T10:03:10.360Z] Command:       /home/JacobUbuntu/.nvm/versions/node/v20.12.1/bin/node /home/JacobUbuntu/.nvm/versions/node/v20.12.1/bin/firebase serve
+[debug] [2024-05-03T10:03:10.360Z] CLI Version:   13.7.2
+[debug] [2024-05-03T10:03:10.360Z] Platform:      linux
+[debug] [2024-05-03T10:03:10.360Z] Node Version:  v20.12.1
+[debug] [2024-05-03T10:03:10.360Z] Time:          Fri May 03 2024 12:03:10 GMT+0200 (Central European Summer Time)
+[debug] [2024-05-03T10:03:10.360Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-05-03T10:03:10.436Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-05-03T10:03:10.436Z] > authorizing via signed-in user (j.klintskar@gmail.com)
+[debug] [2024-05-03T10:03:10.436Z] [iam] checking project campusconnect-30c4a for permissions ["firebase.projects.get"]
+[debug] [2024-05-03T10:03:10.437Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/campusconnect-30c4a:testIamPermissions [none]
+[debug] [2024-05-03T10:03:10.438Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/campusconnect-30c4a:testIamPermissions x-goog-quota-user=projects/campusconnect-30c4a
+[debug] [2024-05-03T10:03:10.438Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/campusconnect-30c4a:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-05-03T10:03:11.277Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/campusconnect-30c4a:testIamPermissions 200
+[debug] [2024-05-03T10:03:11.277Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/campusconnect-30c4a:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-05-03T10:03:11.278Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/campusconnect-30c4a [none]
+[debug] [2024-05-03T10:03:11.658Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/campusconnect-30c4a 200
+[debug] [2024-05-03T10:03:11.658Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/campusconnect-30c4a {"projectId":"campusconnect-30c4a","projectNumber":"728123265116","displayName":"CampusConnect","name":"projects/campusconnect-30c4a","resources":{"hostingSite":"campusconnect-30c4a","realtimeDatabaseInstance":"campusconnect-30c4a-default-rtdb","storageBucket":"campusconnect-30c4a.appspot.com","locationId":"europe-west2"},"state":"ACTIVE","etag":"1_4c0b2b5e-7928-4e31-a90f-1a4b8bfaa8f2"}
+[info] 
+[info] === Serving from '/home/JacobUbuntu/Desktop/projects/school/Campus-Connect'...
+[info] 
+[debug] [2024-05-03T10:03:11.660Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/campusconnect-30c4a/sites 
+[debug] [2024-05-03T10:03:13.075Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/campusconnect-30c4a/sites 200
+[debug] [2024-05-03T10:03:13.075Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/campusconnect-30c4a/sites {"sites":[{"name":"projects/campusconnect-30c4a/sites/campusconnect-30c4a","defaultUrl":"https://campusconnect-30c4a.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2024-05-03T10:03:13.076Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/campusconnect-30c4a/webApps/-/config [none]
+[debug] [2024-05-03T10:03:13.864Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/campusconnect-30c4a/webApps/-/config 200
+[debug] [2024-05-03T10:03:13.865Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/campusconnect-30c4a/webApps/-/config {"projectId":"campusconnect-30c4a","appId":"1:728123265116:web:2d24f83a222e156fe4d699","databaseURL":"https://campusconnect-30c4a-default-rtdb.europe-west1.firebasedatabase.app","storageBucket":"campusconnect-30c4a.appspot.com","locationId":"europe-west2","apiKey":"AIzaSyAjWnGy2HpTFM-07fRp3VIokULmU_dyMg4","authDomain":"campusconnect-30c4a.firebaseapp.com","messagingSenderId":"728123265116","measurementId":"G-YRMP4KDMNX"}
+[debug] [2024-05-03T10:03:13.878Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/campusconnect-30c4a [none]
+[debug] [2024-05-03T10:03:14.151Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/campusconnect-30c4a 200
+[debug] [2024-05-03T10:03:14.151Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/campusconnect-30c4a {"projectId":"campusconnect-30c4a","projectNumber":"728123265116","displayName":"CampusConnect","name":"projects/campusconnect-30c4a","resources":{"hostingSite":"campusconnect-30c4a","realtimeDatabaseInstance":"campusconnect-30c4a-default-rtdb","storageBucket":"campusconnect-30c4a.appspot.com","locationId":"europe-west2"},"state":"ACTIVE","etag":"1_4c0b2b5e-7928-4e31-a90f-1a4b8bfaa8f2"}
+[info] i  hosting[campusconnect-30c4a]: Serving hosting files from: public {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mpublic\u001b[22m"}}
+[info] ✔  hosting[campusconnect-30c4a]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: 127.0.0.1 - - [03/May/2024:10:03:17 +0000] "GET / HTTP/1.1" - - "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [03/May/2024:10:03:17 +0000] \"GET / HTTP/1.1\" - - \"-\" \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0\""}}
+[info] i  hosting: 127.0.0.1 - - [03/May/2024:10:03:17 +0000] "GET /bundle.js HTTP/1.1" 200 - "http://localhost:5000/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [03/May/2024:10:03:17 +0000] \"GET /bundle.js HTTP/1.1\" 200 - \"http://localhost:5000/\" \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0\""}}
+[info] i  hosting: 127.0.0.1 - - [03/May/2024:10:03:17 +0000] "GET /favicon.ico HTTP/1.1" - - "http://localhost:5000/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [03/May/2024:10:03:17 +0000] \"GET /favicon.ico HTTP/1.1\" - - \"http://localhost:5000/\" \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0\""}}
+[info] Shutting down...
+[debug] [2024-05-03T10:03:52.010Z] Error: Timed out.
+    at Timeout.<anonymous> (/home/JacobUbuntu/.nvm/versions/node/v20.12.1/lib/node_modules/firebase-tools/lib/utils.js:258:49)
+    at listOnTimeout (node:internal/timers:573:17)
+    at process.processTimers (node:internal/timers:514:7)
+[error] 
+[error] Error: An unexpected error has occurred.
