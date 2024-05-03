@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc, getDocs, query, where, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 jest.mock('firebase/app');
 jest.mock('firebase/firestore');
+
   
 initializeApp.mockReturnValue({});
 
@@ -120,5 +121,9 @@ describe("Database Tests", () => {
     await deleteDocument(testCollectionName2, testDocumentId2);
 
     expect(deleteDoc).toHaveBeenCalledWith(doc(db, testCollectionName2, testDocumentId2));
+  });
+
+  test("Create users", async () => {
+   createUser()
   });
 });

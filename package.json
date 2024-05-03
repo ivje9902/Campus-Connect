@@ -1,9 +1,14 @@
 {
   "dependencies": {
     "babel": "^6.23.0",
-    "firebase": "^10.9.0",
-    "firebase-tools": "^13.7.2",
-    "jsdoc": "^4.0.2"
+    "bash": "^0.0.1",
+    "curl": "^0.1.4",
+    "firebase": "^10.11.1",
+    "firebase-tools": "^13.8.0",
+    "jsdoc": "^4.0.2",
+    "node": "^22.1.0",
+    "nvm": "^0.0.4",
+    "webpack": "^5.91.0"
   },
   "name": "campus-connect",
   "version": "1.0.0",
