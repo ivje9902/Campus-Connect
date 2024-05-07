@@ -47,24 +47,27 @@ const storage = getStorage();
 
 export { storage, db };
 
+let currentUser = null;
+
 onAuthStateChanged(auth, async (user) => {
   if (user) {
-    // User is signed in, let's store additional information
+    currentUser = { uid: user.uid };
     const userRef = doc(db, "users", user.uid);
     await setDoc(userRef, {
       email: user.email,
-      fullName: "John Doe",
-      preferences: {
-        theme: "dark"
+      files: {
       }
     }, { merge: true });
     console.log("User data stored/updated in Firestore.");
   } else {
-    // User is signed out
+    currentUser = null;
     console.log("No user is signed in.");
   }
 });
 
+export async function getCurrentUser() {
+  return currentUser;
+}
 
 /**
  * Asynchronously retrieves the download URL for a file stored in Firebase Storage based on a given path.
