@@ -85,6 +85,15 @@
         background-color: #eee;
         /* Add a hover effect to all links, except for headers */
     }
+
+    .alert {
+            width: 75%;
+            margin-left: 12.5%;
+            text-align: center;
+            z-index: 6;
+            position: fixed;
+            overflow: auto;
+    }
 </style>
 
 <body class="bg-info" onload="set_name()">
@@ -134,6 +143,16 @@
     </div>
     <!--End of header-->
 
+    <!--LoginStatus-->
+    <div class="alert alert-success" role="alert" id="alert-loggedin" style="display: none;">
+        <strong>Logged in successfully!</strong>
+    </div>
+    <div class="alert alert-danger" role="alert" id="alert-failed" style="display: none;">
+        <strong>Failed to login!</strong>
+    </div>
+    <div class="alert alert-success" role="alert" id="alert-loggedout" style="display: none;">
+        <strong>Logged out successfully!</strong>
+    </div>
 
 
     <script type="text/javascript">
@@ -232,18 +251,15 @@
             var status = localStorage.getItem("myVariable");
             if (status === "false") {
                 event_login();
-                document.getElementById("login_status").innerHTML = "Logout"
 
             }
             else {
                 event_logout();
-                document.getElementById("login_status").innerHTML = "Login"
 
             }
         }
 
         function event_login() {
-            change();
             signInWithGoogle();
             return;
         }
@@ -265,19 +281,82 @@
             localStorage.setItem("myVariable", myVariable);
         }
 
+        function disableLoginButton() {
+            var btn = document.getElementById('login_status');
+            btn.onclick = function(event) {
+                event.preventDefault();
+            }
+            btn.innerHTML = "Waiting for response...";
+        }
+
+        function enableLoginButton() {
+            var btn = document.getElementById('login_status');
+            btn.setAttribute("href", "#");
+            btn.onclick = google_event;
+            btn.innerHTML = "Login";
+        }
+
+        function loginSuccess() {
+            var loginMessage = document.getElementById("alert-loggedin");
+            
+
+                loginMessage.style.display = "block";
+                setTimeout(function() {
+                    loginMessage.style.display = "none";
+                }, 2800);
+        }
+
+        function loginFailed() {
+             var loginMessage = document.getElementById("alert-failed");
+                
+            loginMessage.style.display = "block";
+            setTimeout(function() {
+                loginMessage.style.display = "none";
+            }, 2800);
+        }
+
+        function loggedOut() {
+             var loginMessage = document.getElementById("alert-loggedout");
+                
+            loginMessage.style.display = "block";
+            
+            setTimeout(function() {
+                loginMessage.style.display = "none";
+            }, 2800);
+        }
+            
+        
+
         function signInWithGoogle() {
             var provider = new firebase.auth.GoogleAuthProvider();
+            
+            disableLoginButton();
+            
             firebase.auth().signInWithPopup(provider).then(function (result) {
                 var user = result.user;
-                console.log("Signed in", user)
+                console.log("Signed in", user);
+                enableLoginButton();
+
+                loginSuccess();
+
+                document.getElementById("login_status").innerHTML = "Logout";
+                change();
+
             }).catch(function (error) {
                 console.error(error);
+                loginFailed();
+                enableLoginButton();
+                
+                
+                document.getElementById("login_status").innerHTML = "Login";
             });
         }
 
         function signOutWithGoogle() {
             firebase.auth().signOut().then(() => {
                 console.log("Signed out");
+                loggedOut();
+                document.getElementById("login_status").innerHTML = "Login"
             }).catch((error) => {
                 console.error(error);
             });
@@ -294,8 +373,6 @@
                 console.log("User is signed out");
             }
         })
-
-
     </script>
 
 
