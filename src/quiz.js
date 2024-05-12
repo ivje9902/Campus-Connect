@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, getDocs, query, where, doc, setDoc, updateDoc, deleteDoc, count, getDoc, arrayUnion } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDocs, query, where, doc, setDoc, updateDoc, deleteDoc, count, getDoc, arrayUnion , onSnapshot, FieldPath, arrayRemove} from "firebase/firestore";
 
 import { db, getCurrentUser } from './backend.js';
 
@@ -67,6 +67,7 @@ async function createQuiz() {
         };
 
         await setDoc(userDocRef, updateData, { merge: true });
+        getAllQuizzes();
     }
 }
 
@@ -121,6 +122,33 @@ async function addQuizQuestions() {
     console.log("Document updated")
 }
 
+async function isAlreadyLiked(quizID) {
+    try {
+        const user = await getCurrentUser();
+        const userID = user.uid;
+
+        const docRef = doc(db, "users", userID);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const userData = docSnap.data();
+            const likes = userData.likedContent;
+
+            if(likes.includes(quizID)) {
+                return [true, docRef];
+            } else {
+                return [false, docRef];
+            }
+        } 
+
+        return false;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+
 
 /**
  * Fetches all quizzes associated with the current course ID from the database and displays them as buttons on the page.
@@ -129,19 +157,21 @@ async function addQuizQuestions() {
  * @returns {void} This function doesn't return a value directly, but fetches and displays quiz buttons asynchronously.
  * @throws {Error} If there is an error fetching or processing quiz data from the database.
  */
-function getAllQuizzes() {
-    var courseID = localStorage.getItem("ID");
-    console.log(courseID);
+async function getAllQuizzes() {
+    try {
+        var courseID = localStorage.getItem("ID");
+        console.log(courseID);
 
-    // Reference to the Quizzes collection in the database
-    const docRef = doc(db, courseID, "Quizzes");
-    const docSnap = collection(docRef, "all-quizzes");
+        // Reference to the Quizzes collection in the database
+        const docRef = doc(db, courseID, "Quizzes");
+        const docSnap = collection(docRef, "all-quizzes");
 
-    const row = document.getElementById('quizzes');
+        const row = document.getElementById('quizzes');
 
-    // Fetch all documents in the "all-quizzes" subcollection
-    getDocs(docSnap).then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
+        // Fetch all documents in the "all-quizzes" subcollection
+        const querySnapshot = await getDocs(docSnap);
+        row.innerHTML = '';
+        for (const doc of querySnapshot.docs) {
             const quizID = doc.id;
             const button = document.createElement("button");
             button.innerHTML = quizID;
@@ -149,8 +179,7 @@ function getAllQuizzes() {
             button.style.display = "inline-block";
 
             //Add click event listener to each quiz button
-            button.addEventListener("click", function () {
-
+            button.addEventListener("click", async function () {
                 localStorage.setItem("selectedQuizID", quizID);
 
                 window.location.href = "quiz.html";
@@ -165,15 +194,24 @@ function getAllQuizzes() {
             const card_body = document.createElement("div");
             card_body.classList.add("card-body");
 
-
             //create heart
             const heart = document.createElement("p");
             heart.classList.add("btn", "shadow-none");
-            getLikeFromQuiz(quizID).then(likeCount => {
+
+            const likeCount = await getLikeFromQuiz(quizID);
+            const isLiked = await isAlreadyLiked(quizID);
+            console.log("isliked", isLiked[0]);
+            if(isLiked[0] === true) {
+                heart.textContent = "❤" + likeCount;
+            } else {    
                 heart.textContent = "🖤" + likeCount;
-            });
+            }
+            
             heart.style.fontSize = "2rem";
             heart.style.display = "inline-block";
+
+            //Get user data
+            const userRef = isLiked[1];
 
             heart.addEventListener('click', async () => {
                 try {
@@ -183,11 +221,15 @@ function getAllQuizzes() {
 
                         await uppdateLikes(count + 1, quizID);
                         heart.textContent = "❤" + await getLikeFromQuiz(quizID);
-
-                    }
-                    else {
+                        await updateDoc(userRef, {
+                            likedContent: arrayUnion(quizID)
+                        });
+                    } else {
                         await uppdateLikes(count - 1, quizID);
                         heart.textContent = "🖤" + await getLikeFromQuiz(quizID);
+                        await updateDoc(userRef, {
+                            likedContent: arrayRemove(quizID)
+                        });
                     }
                 } catch (error) {
                     console.error("error", error);
@@ -199,12 +241,12 @@ function getAllQuizzes() {
             card_body.appendChild(heart);
             card_container.appendChild(card_body);
             row.appendChild(card_container);
-
-        });
-    }).catch((error) => {
+        }
+    } catch (error) {
         console.log("Error getting documents: ", error);
-    });
+    }
 }
+
 
 /**
  * Uppdates the number of likes a quiz has

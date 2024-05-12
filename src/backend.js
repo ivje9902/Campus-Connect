@@ -12,7 +12,7 @@ import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged } from 'fir
  * @function
  * @returns {Object} The Firestore database instance.
  */
-import { getFirestore, collection, addDoc, getDocs, query, where, doc, setDoc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, getDocs, query, where, doc, setDoc, updateDoc, deleteDoc, getDoc } from 'firebase/firestore';
 
 
 /**
@@ -54,13 +54,20 @@ onAuthStateChanged(auth, async (user) => {
     currentUser = { uid: user.uid, umail: user.email };
     const userRef = doc(db, "users", user.uid);
 
-    const updateData = {
-      email: user.email,
-    };
+    const docSnap = await getDoc(userRef);
+    const userData = docSnap.data();
 
-    await setDoc(userRef, updateData, { merge: true });
+    // Check if likedContent array already exists
+    if (!userData || !userData.likedContent) {
+      // Initialize likedContent array
+      const updateData = {
+        email: user.email,
+        likedContent: []
+      };
 
-    console.log("User data stored/updated in Firestore.");
+      await setDoc(userRef, updateData, { merge: true });
+      console.log("User data stored/updated in Firestore.");
+    }
 
     var username = document.getElementById("displayName");
     username.textContent = user.displayName;
