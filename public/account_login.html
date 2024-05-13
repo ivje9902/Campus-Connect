@@ -26,13 +26,13 @@
 </head>
 
 <style>
-    .alert {
-        width: 75%;
-        margin-left: 12.5%;
-        text-align: center;
-        z-index: 4;
-        position: fixed;
-        overflow: auto;
+    .container {
+        margin-top: 5vh;
+        /* Adjust as needed */
+        padding-top: 25vh;
+        /* Adjust as needed */
+        padding-bottom: 30vh;
+        /* Adjust as needed */
     }
 
     .navbar .navbar-nav .nav-link:hover {
@@ -95,57 +95,14 @@
         /* Add a hover effect to all links, except for headers */
     }
 
-    /* START OF MODAL CSS*/
-
-    /* The Modal (background) */
-    .modal {
-        display: none;
-        /* Hidden by default */
+    .alert {
+        width: 75%;
+        margin-left: 12.5%;
+        text-align: center;
+        z-index: 6;
         position: fixed;
-        /* Stay in place */
-        z-index: 1;
-        /* Sit on top */
-        padding-top: 100px;
-        /* Location of the box */
-        left: 0;
-        top: 0;
-        width: 100%;
-        /* Full width */
-        height: 100%;
-        /* Full height */
         overflow: auto;
-        /* Enable scroll if needed */
-        background-color: rgb(0, 0, 0);
-        /* Fallback color */
-        background-color: rgba(0, 0, 0, 0.4);
-        /* Black w/ opacity */
     }
-
-    /* Modal Content */
-    .modal-content {
-        background-color: #fefefe;
-        margin: auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-    }
-
-    /* The Close Button */
-    .close {
-        color: #aaaaaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-        color: #000;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    /*END OF MODAL CSS*/
 </style>
 
 <body class="bg-info" onload="set_name()">
@@ -167,11 +124,11 @@
             <ul class="navbar-nav mr-auto">
 
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Home <span class="sr-only">(Current)</span></a>
+                    <a class="nav-link" href="index.html">Home</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="upload.html">Upload</a>
+                    <a class="nav-link" href="upload.html">Upload <span class="sr-only">(Current)</span></a>
                 </li>
 
                 <li class="nav-item">
@@ -199,36 +156,17 @@
         <strong>Logged out successfully!</strong>
     </div>
 
-    <!-- Start of Modal -->
-    <div id="myModal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h5>Uploading guidelines and restrictions</h5>
-            <p>Some text in the Modal..</p>
+
+    <!-- Login page -->
+    <div class="container mt-3">
+        <h2 class="text-center">Login to view account</h2>
+        <div class="text-center mt-3">
+            <button class="btn btn-primary" id="loginButton" onclick="google_event() ">Sign in with Google</button>
         </div>
     </div>
-    <!--End of Modal-->
+    <!-- End of content -->
 
 
-
-    <!--Start of header-->
-
-    <div class="container-fluid p-5 bg-info text-black text-center">
-        <h1>Account page</h1>
-        <p>Here you will be able to see your account</p>
-    </div>
-    <!--End of header-->
-
-    <div class="jumbotron jumbotron-fluid bg-light border border-4 border-dark">
-        <div class="container">
-            <h1 class="display-4" id="displayName">username</h1>
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
-                alt="Generic placeholder image" class="img-fluid rounded-circle border border-dark border-3"
-                style="width: 70px;">
-            <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-        </div>
-    </div>
 
 
 
@@ -321,6 +259,17 @@
             btn.innerHTML = "Login";
         }
 
+        function disableUploadLoginButton() {
+            var button = document.getElementById("loginButton");
+            button.disabled = true;
+            button.innerHTML = "Waiting for response";
+        }
+        function enableUploadLoginButton() {
+            var button = document.getElementById("loginButton");
+            button.disabled = false;
+            button.innerHTML = "Sign in with Google";
+        }
+
         function loginSuccess() {
             var loginMessage = document.getElementById("alert-loggedin");
 
@@ -387,21 +336,16 @@
             });
         }
 
-        //document.getElementById('googleSignInButton').addEventListener('click', event_login);
-
-        //document.getElementById('googleSignOutButton').addEventListener('click', event_logout);
 
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 console.log("User is signed in");
+                window.location.href = "account.html";
             } else {
                 console.log("User is signed out");
-                window.location.href = "account_login.html";
             }
         })
     </script>
-
-
 
 
 
@@ -412,7 +356,7 @@
         <!-- Footer -->
         <footer class="text-center text-lg-start text-white" style="background-color: #1c2331">
             <!-- Section: Social media -->
-            <section class="d-flex justify-content-between p-4 bg-primary">
+            <section class="d-flex justify-content-between p-4 bg-secondary">
                 <!-- Left -->
                 <div class="me-5">
                     <span>Connect with us on social media:</span>
@@ -433,7 +377,7 @@
             <!-- Section: Social media -->
 
             <!-- Section: Links  -->
-            <section class="">
+            <section class="" style="margin-top: -200px;">
                 <div class="container text-center text-md-start mt-5">
                     <!-- Grid row -->
                     <div class="row mt-3">
@@ -442,36 +386,22 @@
                             <!-- Content -->
                             <h6 class="text-uppercase fw-bold">Campus Connect</h6>
                             <hr class="mb-4 mt-0 d-inline-block mx-auto"
-                                style="width: 60px; background-color: #7c4dff; height: 2px" />
-                            <p>
-                                Here at campus connect.......
-                            </p>
+                                style="width: 60px; background-color: #7c4dff; height: 3px" />
+                            <p>Here at campus connect.......</p>
                         </div>
                         <!-- Grid column -->
-
-
-
                         <!-- Grid column -->
                         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                             <!-- Links -->
                             <h6 class="text-uppercase fw-bold">Useful links</h6>
                             <hr class="mb-4 mt-0 d-inline-block mx-auto"
                                 style="width: 60px; background-color: #7c4dff; height: 2px" />
-                            <p>
-                                <a href="frame3.html" class="text-white">Your Account</a>
-                            </p>
-                            <p>
-                                <a id="link" class="text-white" href="#myModal">Uploading guidelines</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-white">User agreement</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-white">Help</a>
-                            </p>
+                            <p><a href="frame3.html" class="text-white">Your Account</a></p>
+                            <p><a id="link" href="#myModal" class="text-white">Uploading guidelines</a></p>
+                            <p><a href="#!" class="text-white">User agreement</a></p>
+                            <p><a href="#!" class="text-white">Help</a></p>
                         </div>
                         <!-- Grid column -->
-
                         <!-- Grid column -->
                         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                             <!-- Links -->
@@ -488,6 +418,7 @@
                     <!-- Grid row -->
                 </div>
             </section>
+
             <!-- Section: Links  -->
 
             <!-- Copyright -->
