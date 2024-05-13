@@ -183,7 +183,7 @@
 
 </head>
 
-<body class="bg-info-subtle" onload="set_name()">
+<body class="bg-info-subtle" onload="set_name(); getAllQuizzes();">
 
 
 
@@ -332,11 +332,6 @@
                     errorMessageAdd.textContent = "Need to sign in to add quiz questions.";
                 }
 
-            });
-
-            // Add click event listener to the "Submit Name" button
-            $('#submit-name-btn').click(function () {
-                createQuiz();
             });
 
             // Add click event listener to the "Add a Question" button

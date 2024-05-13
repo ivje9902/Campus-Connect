@@ -67,6 +67,7 @@ async function createQuiz() {
         };
 
         await setDoc(userDocRef, updateData, { merge: true });
+        getAllQuizzes();
     }
 }
 
